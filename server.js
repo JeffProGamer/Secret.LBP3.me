@@ -18,11 +18,14 @@ app.get("/", (req, res) => {
 
 // POST /create-place route
 app.post("/create-place", async (req, res) => {
-  const { playerName } = req.body;
+  const { playerName, userId } = req.body;
 
   if (!playerName) {
     return res.status(400).json({ error: "Missing player name!" });
   }
+
+  // Optionally use userId if you want to do something with it
+  console.log("Creating place for player:", playerName, "UserId:", userId);
 
   try {
     const response = await axios.post(
@@ -45,9 +48,4 @@ app.post("/create-place", async (req, res) => {
     console.error("❌ Failed to create place:", error.response?.data || error.message);
     return res.status(500).json({ error: "Failed to create place." });
   }
-});
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
 });
