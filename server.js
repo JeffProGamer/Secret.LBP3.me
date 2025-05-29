@@ -1,4 +1,3 @@
-// server.js
 const express = require("express");
 const axios = require("axios");
 const bodyParser = require("body-parser");
@@ -8,8 +7,9 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-// 🔐 Store your API key securely in the environment settings on Render
-const API_KEY = process.env.process.env.API_KEY
+// Make sure this reads your environment variable correctly
+const API_KEY = process.env.API_KEY;
+const UNIVERSE_ID = "6742973974"; // Replace with your Universe ID
 
 app.post("/create-place", async (req, res) => {
     const { playerName } = req.body;
@@ -22,7 +22,7 @@ app.post("/create-place", async (req, res) => {
         const response = await axios.post(
             `https://apis.roblox.com/universes/v1/${UNIVERSE_ID}/places/create`,
             {
-                name: `${playerName} Unnamed Level`,
+                name: `${playerName}'s New Place`,
                 description: `A personal world for ${playerName}`,
                 isPublic: false
             },
